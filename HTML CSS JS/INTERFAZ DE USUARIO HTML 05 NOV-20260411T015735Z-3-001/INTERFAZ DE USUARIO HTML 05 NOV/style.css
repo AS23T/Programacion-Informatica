@@ -1,0 +1,123 @@
+/*
+ * ===========================================================================
+ * 1. VARIABLES GLOBALES Y PALETA DE COLORES
+ * ===========================================================================
+ * Aquí definimos los colores principales. Si cambias el azul aquí,
+ * cambiará en toda la página web automáticamente.
+
+ */
+ @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+:root {
+  
+  /* --- Definición de Colores Propios de la Marca --- */
+  --lp-primary-color: #144396; /* Azul Oscuro Institucional */
+  --lp-primary-rgb: 20, 67, 150; /* Versión RGB para opacidades */
+
+  --lp-secondary-color: #e0cd00; /* Amarillo Vibrante */
+  --lp-secondary-rgb: 224, 205, 0;
+
+  --lp-text-color: #000000; /* Negro */
+  --lp-dark-color: #000000;
+  --lp-dark-rgb: 0, 0, 0;
+
+  /* --- Sobreescritura de Variables de Bootstrap --- */
+  /* Esto le dice a Bootstrap: "No uses tu azul por defecto, usa MI azul" */
+  --bs-primary: var(--lp-primary-color);
+  --bs-primary-rgb: var(--lp-primary-rgb);
+  
+  --bs-secondary: var(--lp-secondary-color);
+  --bs-secondary-rgb: var(--lp-secondary-rgb);
+  
+  --bs-body-color: var(--lp-text-color);
+  --bs-dark: var(--lp-dark-color);
+  --bs-dark-rgb: var(--lp-dark-rgb);
+}
+/*
+ * ===========================================================================
+ * 2. PERSONALIZACIÓN DE BOTONES
+ * ===========================================================================
+ */
+
+/* Modificamos el botón 'secondary' (usado para 'Añadir al carrito') 
+   para que sea amarillo con texto negro */
+.btn-secondary {
+  color: var(--lp-dark-color);
+  background-color: var(--lp-secondary-color);
+  border-color: var(--lp-secondary-color);
+}
+
+/* Efecto HOVER: Qué pasa cuando pasas el mouse por encima */
+.btn-secondary:hover {
+  color: var(--lp-dark-color);
+  background-color: #e0cd00; /* Un amarillo un poco más oscuro */
+  border-color: #e0cd00;
+}
+
+/* Ajuste para botones de borde (outline) si se usan */
+.btn-outline-secondary:hover {
+  color: var(--lp-dark-color);
+  background-color: var(--lp-secondary-color);
+  border-color: var(--lp-secondary-color);
+}
+
+/*
+ * ===========================================================================
+ * 3. FONDO DE PÁGINA (Truco Avanzado)
+ * ===========================================================================
+ */
+
+/* Clase aplicada al <body> */
+.lp-page-background {
+  position: relative; /* Necesario para que el hijo ::before se posicione respecto a esto */
+}
+
+/* Pseudo-elemento ::before
+   Crea una "capa falsa" detrás del contenido con la imagen.
+   Esto permite poner la imagen fija (fixed) sin afectar al texto. */
+.lp-page-background::before {
+  content: "";
+  position: fixed; /* La imagen no se mueve al hacer scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(assets/campifondo.jpg);
+  z-index: -1; /* Se envía al fondo, detrás del texto */
+  background-size: cover; /* Estira la imagen para cubrir toda la pantalla */
+  /* Podrías añadir 'filter: blur(5px);' aquí si quisieras difuminarlo */
+}
+
+/*
+ * ===========================================================================
+ * 4. TARJETAS (CARDS) DE LIBROS
+ * ===========================================================================
+ */
+
+/* Control de Imágenes de Portada */
+/* Esto es crucial: Evita que las imágenes de distintos tamaños rompan el diseño */
+.card-img-top {
+  height: 600px; /* Fuerza a todas las portadas a medir 600px de alto */
+  object-fit: cover; /* "Recorta" la imagen para llenar el hueco sin deformarla (sin estirarla a lo ancho) */
+}
+
+/*
+ * ===========================================================================
+ * 5. UTILIDADES EXTRAS
+ * ===========================================================================
+ */
+
+/* Clase útil para imágenes tipo logotipos o 'work in progress' que deben verse completas */
+.lp-img-responsive-contain {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain; /* Muestra la imagen entera, añadiendo espacios vacíos si hace falta */
+  display: block;
+  margin: 0 auto; /* Centrado horizontal */
+}
+.lp-brand-title {
+    /* Usamos la variable del color secundario (Amarillo) definida en :root */
+    color: var(--lp-secondary-color) !important; 
+    
+    /* Aplicamos la nueva tipografía */
+    font-family: "Quicksand", sans-serif;
+}

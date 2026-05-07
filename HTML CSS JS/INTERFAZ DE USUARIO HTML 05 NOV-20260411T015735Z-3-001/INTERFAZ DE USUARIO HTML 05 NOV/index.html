@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Metadatos básicos -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Importante para que se vea bien en celulares -->
+    <title>Libros Penquistas</title>
+    <!-- Carga de Bootstrap (CSS) desde internet (CDN) para estilos rápidos y responsivos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- Carga de Iconos de Bootstrap (Carrito, Usuario, Redes sociales) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Nuestra hoja de estilos personalizada -->
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="icon" href="assets/campilogo.png" type="image/png">
+</head>
+
+<!-- 'd-flex flex-column min-vh-100' asegura que el footer se quede abajo aunque haya poco contenido -->
+<body class="lp-page-background d-flex flex-column min-vh-100">
+    
+    <!-- NAVBAR: Barra de navegación -->
+    <header class="navbar navbar-dark bg-primary shadow-sm navbar-expand-lg">
+        <div class="container p-3">
+
+            <!-- Logo y Nombre de la marca -->
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <h1 class="lp-brand-title fs-3 fw-bold mb-0">Libros Penquistas</h1>
+                <img src="assets/campilogo.png" type="image/png" width="60" height="60" class="ms-2">
+            </a>
+        
+            <!-- Botón Hamburguesa: Solo visible en móviles -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Contenido del menú -->
+            <div class="collapse navbar-collapse" id="navbarMainCollapse">
+                
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <!-- Enlaces de navegación -->
+                    <li class="nav-item"><a href="index.html" class="nav-link text-white-50">Inicio</a></li>
+                    <li class="nav-item"><a href="#quienes-somos" class="nav-link text-white-50">¿Quiénes somos?</a></li>
+                    <li class="nav-item"><a href="#Catalogo" class="nav-link text-white-50">Catalogo</a></li>
+
+                    <!-- Zona de Usuario y Carrito -->
+                    <li class="nav-item d-flex gap-2 align-items-center mt-3 mt-lg-0 ms-lg-3">
+                        
+                        <!-- ESTADO 1: Usuario NO logueado -->
+                        <div id="user-logged-out" class="d-flex gap-2">
+                            <a class="btn btn-outline-light btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</a>
+                        </div>
+                        
+                        <!-- ESTADO 2: Usuario SÍ logueado -->
+                        <div id="user-logged-in" class="d-none d-flex gap-2 align-items-center">
+                            <span id="user-display-name" class="text-white small me-2"></span>
+                            <a href="#" id="crear-pub-btn" class="btn btn-secondary btn-sm fw-bold">Crear Publicación</a>
+                            <a href="#" id="logout-btn" class="btn btn-outline-light btn-sm fw-bold">Cerrar Sesión</a>
+                        </div>
+                        
+                        <!-- Icono del Carrito -->
+                        <a href="carrito.html" class="nav-link text-white fs-4 position-relative" title="Carrito de Compras">
+                            <i class="bi bi-cart-fill"></i>
+                            <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div> 
+        </div> 
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="flex-grow-1 container p-4 p-md-5">
+
+        <!-- Sección Informativa -->
+        <section id="quienes-somos" class="bg-light p-4 p-md-5 rounded shadow-lg mb-4">
+            <h2 class="h2 fw-semibold mb-4 text-primary text-center">
+                <i class="bi bi-people-fill"></i>
+                ¿Quiénes Somos?
+            </h2>
+            <p class="lead text-center">
+                Somos "Libros Penquistas", una iniciativa dedicada a la promoción de la literatura local
+            </p>
+            <p>
+                Nuestra mision es ser el puente para los autores que quieran publicar sus primeras historias y ser el escalon que los adentre a profesionalizarse. Con una pagina local que busque facilitar todos esos procesos que actualmente son dificiles de conseguir en un medio chileno y en general ser un portal de venta de libros para escritores y editoriales ya establecidas.
+            </p>
+        </section>
+
+        <!-- Sección Catálogo -->
+        <div class="bg-white p-4 p-md-5 rounded shadow-lg">
+            <h2 id="Catalogo" class="h2 fw-semibold mb-4 text-primary text-center">
+                <i class="bi bi-book-half"></i> 
+                Nuestro Catálogo
+            </h2>
+
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-center text-white">
+                    Filtrar por Género
+                </div>
+                <div class="list-group list-group-flush list-group-horizontal-md" id="filtro-generos"> 
+                    <a href="#" data-genero="Todos" class="list-group-item list-group-item-action active text-center flex-fill">Todos</a>
+                    <a href="#" data-genero="Literatura" class="list-group-item list-group-item-action text-center flex-fill">Literatura</a>
+                    <a href="#" data-genero="Poesía" class="list-group-item list-group-item-action text-center flex-fill">Poesía</a>
+                    <a href="#" data-genero="Filosofía" class="list-group-item list-group-item-action text-center flex-fill">Filosofía</a>
+                    <a href="#" data-genero="Manga" class="list-group-item list-group-item-action text-center flex-fill">Manga</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- PRODUCTO 1 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4" data-genero="Literatura">    
+                    <div class="card h-100 shadow-sm">
+                        <img src="assets/portadas/portadacyc.jpg" class="card-img-top" alt="Crimen y castigo" onerror="this.src='https://placehold.co/400x600?text=Sin+Imagen'">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Crimen y castigo.</h5>
+                            <p class="card-text text-body-secondary">Fiodor M. Dostoievski.</p>
+                            <h4 class="text-primary fw-bold my-2">$19.990</h4>
+                            <div class="mt-auto">
+                                <button class="btn btn-secondary w-100 add-to-cart" 
+                                    data-id="1" 
+                                    data-name="Crimen y castigo" 
+                                    data-price="19990" 
+                                    data-image="assets/portadas/portadacyc.jpg">
+                                    Añadir al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTO 2 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4"data-genero="Filosofía">
+                    <div class="card h-100 shadow-sm">
+                        <img src= "assets/portadas/portadaasihablo.jpg" class="card-img-top" alt="Así habló Zaratustra" onerror="this.src='https://placehold.co/400x600?text=Sin+Imagen'">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Así habló Zaratustra.</h5>
+                            <p class="card-text text-body-secondary">Friedrich Nietzsche.</p>
+                            <h4 class="text-primary fw-bold my-2">$24.990</h4>
+                            <div class="mt-auto">
+                                <button class="btn btn-secondary w-100 add-to-cart" data-id="2" data-name="Así habló Zaratustra" data-price="24990" data-image="assets/portadas/portadaasihablo.jpg">Añadir al Carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRODUCTO 3 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4"data-genero="Literatura">
+                    <div class="card h-100 shadow-sm">
+                        <img src="assets/portadas/portadaelextranjero.png" class="card-img-top" alt="El extranjero" onerror="this.src='https://placehold.co/400x600?text=Sin+Imagen'">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">El extranjero.</h5>
+                            <p class="card-text text-body-secondary">Albert Camus</p>
+                            <h4 class="text-primary fw-bold my-2">$15.000</h4>
+                            <div class="mt-auto">
+                                <button class="btn btn-secondary w-100 add-to-cart" data-id="3" data-name="El extranjero" data-price="15000" data-image="assets/portadas/portadaelextranjero.png">Añadir al Carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTO 4 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4"data-genero="Poesía">
+                    <div class="card h-100 shadow-sm">
+                        <img src="assets/portadas/portadafloresdelmal.jpg" class="card-img-top" alt="Las flores del Mal" onerror="this.src='https://placehold.co/400x600?text=Sin+Imagen'">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Las flores del Mal</h5>
+                            <p class="card-text text-body-secondary">Charles Baudelaire</p>
+                            <h4 class="text-primary fw-bold my-2">$12.000</h4>
+                            <div class="mt-auto">
+                                <button class="btn btn-secondary w-100 add-to-cart" data-id="4" data-name="Las flores del Mal" data-price="12000" data-image="assets/portadas/portadafloresdelmal.jpg">Añadir al Carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTO 5 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4"data-genero="Filosofía">
+                    <div class="card h-100 shadow-sm">
+                        <img src="assets/portadas/portadaelcapital.jpg" class="card-img-top" alt="El Capital." onerror="this.src='https://placehold.co/400x600?text=Sin+Imagen'">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">El Capital.</h5>
+                            <p class="card-text text-body-secondary">Karl Marx</p>
+                            <h4 class="text-primary fw-bold my-2">$18.000</h4>
+                            <div class="mt-auto">
+                            <button class="btn btn-secondary w-100 add-to-cart" data-id="5" data-name="El Capital." data-price="18000" data-image="assets/portadas/portadaelcapital.jpg">Añadir al Carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTO 6 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4"data-genero="Filosofía">
+                    <div class="card h-100 shadow-sm">
+                        <img src="assets/portadas/portadadiosyelestado.jpg" class="card-img-top" alt="Dios y el Estado." onerror="this.src='https://placehold.co/400x600?text=Sin+Imagen'">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Dios y el Estado.</h5>
+                            <p class="card-text text-body-secondary">Mihail Bakunin</p>
+                            <h4 class="text-primary fw-bold my-2">$16.000</h4>
+                            <div class="mt-auto">
+                            <button class="btn btn-secondary w-100 add-to-cart" data-id="6" data-name="Dios y el Estado." data-price="16000" data-image="assets/portadas/portadadiosyelestado.jpg">Añadir al Carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTO 7 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4"data-genero="Manga">
+                    <div class="card h-100 shadow-sm">
+                        <img src="assets/portadas/portadafma.jpg" class="card-img-top" alt="FMA" onerror="this.src='https://placehold.co/400x600?text=Sin+Imagen'">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Full Metal Alchemist Brotherhood Volumen 1.</h5>
+                            <p class="card-text text-body-secondary">Hiromu Arakawa</p>
+                            <h4 class="text-primary fw-bold my-2">$13.000</h4>
+                            <div class="mt-auto">
+                            <button class="btn btn-secondary w-100 add-to-cart" data-id="7" data-name="Full Metal Alchemist Brotherhood Volumen 1." data-price="13000" data-image="assets/portadas/portadafma.jpg">Añadir al Carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTO 8 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4"data-genero="Filosofía">
+                    <div class="card h-100 shadow-sm">
+                        <img src="assets/portadas/portadaesculpireneltiempo.jpg" class="card-img-top" alt="Esculpir el tiempo." onerror="this.src='https://placehold.co/400x600?text=Sin+Imagen'">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Esculpir en el tiempo.</h5>
+                            <p class="card-text text-body-secondary">Andrei Tarkovsky</p>
+                            <h4 class="text-primary fw-bold my-2">$10.000</h4>
+                            <div class="mt-auto">
+                                <button class="btn btn-secondary w-100 add-to-cart" data-id="8" data-name="Esculpir el tiempo." data-price="10000" data-image="assets/portadas/portadaesculpireneltiempo.jpg">Añadir al Carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTO 9 -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4"data-genero="Literatura">
+                    <div class="card h-100 shadow-sm">
+                        <img src="assets/portadas/portadacuantatierranecesitaunhombre.jpg" class="card-img-top" alt="Cuanta tierra necesita un hombre." onerror="this.src='https://placehold.co/400x600?text=Sin+Imagen'">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Cuanta tierra necesita un hombre.</h5>
+                            <p class="card-text text-body-secondary">Leon Tolstoi</p>
+                            <h4 class="text-primary fw-bold my-2">$14.000</h4>
+                            <div class="mt-auto">
+                                <button class="btn btn-secondary w-100 add-to-cart" data-id="9" data-name="Cuanta tierra necesita un hombre." data-price="14000" data-image="assets/portadas/portadacuantatierranecesitaunhombre.jpg">Añadir al Carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección Work in Progress -->
+                <div class="col-12 text-center mt-5">
+                    <img src="assets/campiworkinprogress.jpg" class="img-fluid mb-3" alt="Work In Progress" style="max-width: 300px;" onerror="this.src='https://placehold.co/300x200?text=Proximamente'">
+                    <h2 class="h2 fw-semibold mb-4 text-primary text-center">
+                        <i class="bi bi-gear-fill me-2"></i> 
+                        WORK IN PROGRESS
+                    </h2>
+                    <p class="lead text-body-secondary">¡Estamos trabajando para traer más libros increíbles a nuestro catálogo!</p>
+                </div>
+            </div> 
+        </div> 
+    </main>
+
+    <!-- MODAL DE LOGIN / REGISTRO (UNIFICADO Y SIN DIRECCIÓN) -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    
+                    <form id="loginForm" class="needs-validation" novalidate>
+                        
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="loginEmail" placeholder="tu@correo.com" required>
+                            <div class="invalid-feedback">
+                                Por favor, ingresa un correo electrónico válido.
+                            </div>
+                        </div>
+
+                        <!-- SE ELIMINÓ EL CAMPO DE DIRECCIÓN -->
+                        
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="loginPassword" required minlength="5">
+                            <div class="invalid-feedback" id="password-feedback">
+                                La contraseña es obligatoria (mínimo 5 caracteres).
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberCheck">
+                            <label class="form-check-label" for="rememberCheck">Recordar usuario</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 mb-3">Ingresar</button>
+                        
+                        <hr>
+                        
+                        <p class="text-center text-muted small">¿No tienes cuenta?</p>
+                        
+                        <button type="button" id="registerBtn" class="btn btn-outline-secondary w-100">Registrarse</button>
+
+                        <button type="button" id="guestLoginBtn" class="btn btn-info w-100 mt-2">Acceder sin registrarse (Invitado)</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Completo -->
+    <footer class="w-100 bg-dark text-white-50 p-4">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-md-4">
+                    <h5 class="text-white">Libros Penquistas</h5>
+                    <p class="small">
+                        Fomentando la lectura y la cultura en Concepción. 
+                        &copy; 2025 Todos los derechos reservados.
+                    </p>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5 class="text-white">Información de Contacto</h5>
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2"><i class="bi bi-geo-alt-fill me-2"></i>Arturo Prat 196, Concepción</li>
+                        <li class="mb-2"><i class="bi bi-telephone-fill me-2"></i>+56 9 1234 5678</li>
+                        <li><i class="bi bi-envelope-fill me-2"></i>contacto@librospenquistas.cl</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="text-white">Síguenos</h5>
+                    <div class="d-flex fs-3 gap-3">
+                        <a href="#" class="text-white-50" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white-50" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white-50" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <!-- LÓGICA JAVASCRIPT PRINCIPAL -->
+    <script>
+    (function(){
+        // --- CLAVES DE ALMACENAMIENTO ---
+        const DB_USERS_KEY = 'app_users_db_v1'; // Base de datos de usuarios
+        const CURRENT_USER_KEY = 'app_current_user_email'; // Usuario logueado actual
+        const REMEMBER_ME_KEY = 'app_remember_email';
+        const GUEST_CART_KEY = 'app_guest_cart'; // Carrito para cuando no estás logueado
+
+        // --- HELPER: GESTIÓN DE USUARIOS ---
+        function getUsersDB() {
+            return JSON.parse(localStorage.getItem(DB_USERS_KEY)) || {};
+        }
+        
+        function saveUsersDB(db) {
+            localStorage.setItem(DB_USERS_KEY, JSON.stringify(db));
+        }
+
+        function getCurrentUserEmail() {
+            return localStorage.getItem(CURRENT_USER_KEY);
+        }
+
+        function setCurrentUserEmail(email) {
+            if (email) localStorage.setItem(CURRENT_USER_KEY, email);
+            else localStorage.removeItem(CURRENT_USER_KEY);
+        }
+
+        // --- GESTIÓN DEL CARRITO (ASOCIADO A CUENTA) ---
+        function obtenerCarrito(){
+            const email = getCurrentUserEmail();
+            if (email) {
+                // Si está logueado, carga SU carrito de la BD
+                const db = getUsersDB();
+                return (db[email] && db[email].cart) ? db[email].cart : [];
+            } else {
+                // Si es invitado, carga el carrito temporal
+                return JSON.parse(localStorage.getItem(GUEST_CART_KEY)) || [];
+            }
+        }
+
+        function guardarCarrito(carrito){
+            const email = getCurrentUserEmail();
+            if (email) {
+                // Guardar en la cuenta del usuario
+                const db = getUsersDB();
+                if (db[email]) {
+                    db[email].cart = carrito;
+                    saveUsersDB(db);
+                }
+            } else {
+                // Guardar en invitado
+                localStorage.setItem(GUEST_CART_KEY, JSON.stringify(carrito));
+            }
+        }
+
+        function actualizarContador(){
+            const contador = document.getElementById('cart-count');
+            if(!contador) return;
+            const carrito = obtenerCarrito();
+            const total = carrito.reduce((s, it) => s + (it.cantidad || 0), 0);
+            contador.textContent = total;
+        }
+
+        function agregarItem(item){
+            const carrito = obtenerCarrito();
+            const existente = carrito.find(i => i.id === item.id);
+            if(existente){ existente.cantidad = (existente.cantidad || 1) + 1; }
+            else { carrito.push(Object.assign({}, item, {cantidad:1})); }
+            guardarCarrito(carrito);
+            actualizarContador();
+        }
+
+        // --- GESTIÓN DE UI LOGIN ---
+        function estaLogueado() {
+            return !!getCurrentUserEmail();
+        }
+
+        function actualizarEstadoLoginUI() {
+            const loggedInContainer = document.getElementById('user-logged-in');
+            const loggedOutContainer = document.getElementById('user-logged-out');
+            const userNameDisplay = document.getElementById('user-display-name');
+
+            if (estaLogueado()) {
+                loggedInContainer.classList.remove('d-none');
+                loggedInContainer.classList.add('d-flex');
+                loggedOutContainer.classList.add('d-none');
+                
+                // Mostrar email del usuario
+                userNameDisplay.textContent = getCurrentUserEmail();
+            } else {
+                loggedInContainer.classList.add('d-none');
+                loggedInContainer.classList.remove('d-flex');
+                loggedOutContainer.classList.remove('d-none');
+            }
+            actualizarContador(); // Importante: refrescar contador al cambiar usuario
+        }
+
+        // --- INICIALIZACIÓN ---
+        document.addEventListener('DOMContentLoaded', function(){
+            actualizarEstadoLoginUI(); 
+
+            const loginForm = document.getElementById('loginForm');
+            const loginModalEl = document.getElementById('loginModal');
+            const loginModalInstance = bootstrap.Modal.getOrCreateInstance(loginModalEl);
+            
+            // Validación visual de contraseña
+            const passInput = document.getElementById('loginPassword');
+            const passFeedback = document.getElementById('password-feedback');
+            passInput.addEventListener('input', () => {
+                if (passInput.value.length > 0 && passInput.value.length < 5) {
+                    passFeedback.textContent = 'La contraseña debe tener al menos 5 caracteres.';
+                } else if (passInput.value.length === 0) {
+                     passFeedback.textContent = 'La contraseña es obligatoria.';
+                }
+            });
+
+            // --- LÓGICA DE LOGIN ---
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                if (!loginForm.checkValidity()) {
+                    loginForm.classList.add('was-validated');
+                } else {
+                    const email = document.getElementById('loginEmail').value.trim();
+                    const password = document.getElementById('loginPassword').value;
+                    
+                    const db = getUsersDB();
+
+                    // Verificamos si el usuario existe y la contraseña coincide
+                    if (db[email] && db[email].password === password) {
+                        alert('¡Bienvenido de nuevo, ' + email + '!');
+                        setCurrentUserEmail(email);
+                        
+                        // Recordar usuario si está marcado
+                        if (document.getElementById('rememberCheck').checked) {
+                            localStorage.setItem(REMEMBER_ME_KEY, email);
+                        } else {
+                            localStorage.removeItem(REMEMBER_ME_KEY);
+                        }
+
+                        actualizarEstadoLoginUI();
+                        loginModalInstance.hide();
+                        loginForm.classList.remove('was-validated');
+                        loginForm.reset();
+                    } else {
+                        alert('Correo o contraseña incorrectos, o el usuario no existe.');
+                    }
+                }
+            }, false);
+
+            // Prellenar email si "Recordar usuario" estaba activo
+            loginModalEl.addEventListener('show.bs.modal', function () {
+                const rememberedEmail = localStorage.getItem(REMEMBER_ME_KEY);
+                if (rememberedEmail) {
+                    document.getElementById('loginEmail').value = rememberedEmail;
+                    document.getElementById('rememberCheck').checked = true;
+                } else {
+                    document.getElementById('loginEmail').value = '';
+                    document.getElementById('rememberCheck').checked = false;
+                }
+            });
+            
+            loginModalEl.addEventListener('hidden.bs.modal', function () {
+                loginForm.classList.remove('was-validated');
+                loginForm.reset();
+            });
+
+            // --- INVITADO ---
+            document.getElementById('guestLoginBtn').addEventListener('click', function() {
+                // Para invitado, simplemente aseguramos que no hay usuario logueado
+                // pero cerramos el modal para dejarlos navegar.
+                setCurrentUserEmail(null); 
+                actualizarEstadoLoginUI();
+                loginModalInstance.hide();
+                alert('Navegando como invitado. Los items se guardarán en un carrito temporal.');
+            });
+
+            // --- REGISTRO (CREAR NUEVO USUARIO) ---
+            document.getElementById('registerBtn').addEventListener('click', function() {
+                
+                // SIMPLIFICADO: Ya no pedimos dirección aquí. Solo email y password.
+
+                if (loginForm.checkValidity()) {
+                    const email = document.getElementById('loginEmail').value.trim();
+                    const password = document.getElementById('loginPassword').value;
+                    
+                    const db = getUsersDB();
+
+                    if (db[email]) {
+                        alert('Este correo ya está registrado. Por favor inicia sesión.');
+                    } else {
+                        // CREAR NUEVO USUARIO
+                        db[email] = {
+                            password: password,
+                            direccion: "", // Se inicializa vacía, se llenará en el checkout
+                            cart: [] 
+                        };
+                        saveUsersDB(db);
+
+                        alert('¡Registro exitoso! Sesión iniciada automáticamente.');
+                        setCurrentUserEmail(email);
+                        actualizarEstadoLoginUI();
+                        loginModalInstance.hide();
+                        loginForm.classList.remove('was-validated');
+                        loginForm.reset();
+                    }
+                } else {
+                    loginForm.classList.add('was-validated');
+                }
+            });
+
+            // LOGOUT
+            document.getElementById('logout-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('¡Sesión cerrada! Volviendo a modo invitado.');
+                setCurrentUserEmail(null);
+                actualizarEstadoLoginUI();
+            });
+
+            // --- AÑADIR AL CARRITO (Botones) ---
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', function(){
+                    // Ya no forzamos login, permitimos añadir como invitado o logueado
+                    
+                    const id = btn.getAttribute('data-id');
+                    const name = btn.getAttribute('data-name');
+                    const price = Number(btn.getAttribute('data-price')) || 0;
+                    const image = btn.getAttribute('data-image') || '';
+                    
+                    agregarItem({ id: id, nombre: name, precio: price, imagen: image });
+                    
+                    btn.textContent = '¡Añadido!';
+                    btn.classList.remove('btn-secondary');
+                    btn.classList.add('btn-success');
+                    setTimeout(()=> {
+                        btn.classList.remove('btn-success');
+                        btn.classList.add('btn-secondary');
+                        btn.textContent = 'Añadir al Carrito';
+                    }, 1000);
+                });
+            });
+        });
+    })();
+    </script>
+    
+    <!-- Script de Filtros -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const enlacesFiltro = document.querySelectorAll('#filtro-generos a');
+        const tarjetasProducto = document.querySelectorAll('.row > div[data-genero]');
+        
+        function filtrarProductos(generoSeleccionado) {
+            tarjetasProducto.forEach(card => {
+                const generoLibro = card.getAttribute('data-genero');
+                if (generoSeleccionado === 'Todos' || generoSeleccionado === generoLibro) {
+                    card.style.display = 'block'; 
+                } else {
+                    card.style.display = 'none'; 
+                }
+            });
+        }
+     
+        enlacesFiltro.forEach(enlace => {
+            enlace.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                const genero = this.getAttribute('data-genero');
+                enlacesFiltro.forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+                filtrarProductos(genero);
+            });
+        });
+        
+        filtrarProductos('Todos');
+    });
+    </script>
+</body>
+</html>

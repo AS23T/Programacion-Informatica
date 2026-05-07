@@ -1,0 +1,22 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Ejemplo POST";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenido</h1>
+    <p>Este es un formulario que usa POST y sesiones para pasar datos entre distintas páginas.</p>
+</div>
+
+<h2>Formulario Simple</h2>
+
+@if (ViewData["Error"] != null)
+{
+    <p style="color:red">@ViewData["Error"]</p>
+}
+
+<form method="post">
+    <input type="text" asp-for="MensajeUsuario" placeholder="Escribe un mensaje..." />
+    <button type="submit">Enviar</button>
+</form>

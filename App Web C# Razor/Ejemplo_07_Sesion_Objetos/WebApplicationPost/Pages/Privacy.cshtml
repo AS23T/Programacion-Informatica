@@ -1,0 +1,22 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Página de Destino";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div style="background-color: #e1f5fe; padding: 20px; border-radius: 5px;">
+    @if (Model.contactoRecibido != null)
+    {
+        <p style="color:Blue">Se recibieron los siguientes datos:</p>
+        <p style="color:green">@Model.contactoRecibido.Nombre</p>
+        <p style="color:green">@Model.contactoRecibido.Mail</p>
+        <p>Estos datos persistirán aunque cierres esta pestaña y vuelvas más tarde.</p>
+    }
+    else
+    {
+        <p>No se recibieron datos o la página se refrescó (TempData ya expiró).</p>
+    }
+</div>
+
+<a asp-page="Index">Volver al formulario</a>

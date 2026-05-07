@@ -1,0 +1,23 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Ejemplo POST";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenido</h1>
+    <p>Aprendamos a pasar Objetos ahora.</a>.</p>
+</div>
+
+<h2>Formulario Simple</h2>
+
+@if (ViewData["Error"] != null)
+{
+    <p style="color:red">@ViewData["Error"]</p>
+}
+
+<form method="post">
+    <input type="text" asp-for="Nombre" placeholder="Escribe Nombre..." />
+    <input type="text" asp-for="Mail" placeholder="Escribe Mail..." />
+    <button type="submit">Enviar</button>
+</form>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WebApplicationCanciones.Models.Cancion> /* Declaramos qué tipo de datos recibimos */
+
+@{
+    ViewData["Title"] = "Mi Playlist";
+}
+
+<h1>Mi Playlist de Rock</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Banda</th>
+            <th>Canción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cancion in Model) @* Recorremos la lista que mandó el controlador *@
+        {
+            <tr>
+                <td>@cancion.Banda</td>
+                <td>@cancion.Titulo</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>Total de canciones: @Model.Count()</p>
+
+

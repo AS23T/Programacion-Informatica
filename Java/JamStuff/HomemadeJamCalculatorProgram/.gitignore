@@ -1,0 +1,38 @@
+# Compilados Java
+*.class
+
+# Archivos JAR/WAR/EAR generados
+*.jar
+*.war
+*.ear
+
+# Carpeta de compilación de Ant
+build/
+dist/
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Dependencias externas (si usas lib/)
+lib/
+
+# Archivos de configuración del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de IDEs comunes
+# Eclipse
+.project
+.classpath
+.settings/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# NetBeans
+nbproject/private/
+
+# Archivos de backup
+*~

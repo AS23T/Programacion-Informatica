@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Libros Penquistas</title>
+    <!-- Enlaces -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="icon" href="assets/campilogo.png" type="image/png">
+</head>
+<body class="lp-page-background d-flex flex-column min-vh-100">
+    
+    <!-- Encabezado -->
+    <header class="navbar navbar-dark bg-primary shadow-sm navbar-expand-lg">
+        <div class="container p-3">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <h1 class="lp-brand-title fs-3 fw-bold mb-0">Libros Penquistas</h1>
+                <img src="assets/campilogo.png" type="image/png" width="60" height="60" class="ms-2">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMainCollapse">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item"><a href="index.html" class="nav-link text-white-50">Inicio</a></li>
+                    <li class="nav-item"><a href="index.html#quienes-somos" class="nav-link text-white-50">¿Quiénes somos?</a></li>
+                    <li class="nav-item"><a href="index.html#Catalogo" class="nav-link text-white-50">Catalogo</a></li>
+                    
+                    <li class="nav-item d-flex gap-2 align-items-center mt-3 mt-lg-0 ms-lg-3">
+                        <!-- ESTADO 1: Usuario NO logueado -->
+                        <div id="user-logged-out" class="d-flex gap-2">
+                            <a class="btn btn-outline-light btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</a>
+                        </div>
+                        
+                        <!-- ESTADO 2: Usuario SÍ logueado -->
+                        <div id="user-logged-in" class="d-none d-flex gap-2 align-items-center">
+                            <span id="user-display-name" class="text-white small me-2"></span>
+                            <a href="#" id="crear-pub-btn" class="btn btn-secondary btn-sm fw-bold">Crear Publicación</a>
+                            <a href="#" id="logout-btn" class="btn btn-outline-light btn-sm fw-bold">Cerrar Sesión</a>
+                        </div>
+
+                        <a href="carrito.html" class="nav-link text-white fs-4 position-relative" title="Carrito de Compras">
+                            <i class="bi bi-cart-fill"></i>
+                            <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div> 
+        </div> 
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="flex-grow-1 container p-4 p-md-5">
+        <div class="bg-white p-4 p-md-5 rounded shadow-lg">
+            <h2 class="h2 fw-semibold mb-4 text-primary">
+                <i class="bi bi-cart-fill"></i> Tu Carrito de Compras
+            </h2>
+            
+            <div id="cart-items" class="mb-4"></div>
+
+            <!-- Método de Entrega -->
+            <div id="opciones-envio" class="mb-4">
+                <h4 class="h5 fw-semibold mb-3">Método de Entrega</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="metodoEnvio" id="envioDomicilio" value="domicilio" checked>
+                    <label class="form-check-label" for="envioDomicilio">
+                        Envío a domicilio
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="metodoEnvio" id="envioDigital" value="digital">
+                    <label class="form-check-label" for="envioDigital">
+                        Envío a digital
+                    </label>
+                </div>
+            </div>
+
+            <!-- Dirección de Envío (solo si se elige envío a domicilio) -->
+            <div id="direccion-envio-resumen" class="mb-4">
+                <h4 class="h5 fw-semibold mb-3">Dirección de Envío</h4>
+                <div class="d-flex justify-content-between align-items-start">
+                    <p id="direccion-texto" class="text-muted mb-0">No has ingresado una dirección.</p>
+                    <div class="d-flex gap-2">
+                        <button id="editar-direccion-btn" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-pencil-square"></i> Editar
+                        </button>
+                        <button id="eliminar-direccion-btn" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="border-top pt-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="mb-0">Subtotal:</h5>
+                    <h5 class="mb-0" id="cart-subtotal">$0</h5>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="mb-0">Envío:</h5>
+                    <h5 class="mb-0" id="cart-shipping">$2.500</h5>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0">Total:</h4>
+                    <h4 class="text-primary fw-bold mb-0" id="cart-total">$0</h4>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button id="vaciar-btn" class="btn btn-outline-secondary">Vaciar Carrito</button>
+                    <button id="finalizar-btn" class="btn btn-primary">Finalizar Compra</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL DE DIRECCIÓN DE ENVÍO (Para editar dirección en el carrito) -->
+    <div class="modal fade" id="direccionModal" tabindex="-1" aria-labelledby="direccionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="direccionModalLabel">Dirección de Envío</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="direccionForm" novalidate>
+                        <div class="mb-3">
+                            <label for="direccionInput" class="form-label">Dirección Completa</label>
+                            <input type="text" class="form-control" id="direccionInput" placeholder="Calle, número, depto, comuna, ciudad" required>
+                            <div class="invalid-feedback">
+                                Por favor, ingresa tu dirección.
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" id="guardarDireccionBtn" class="btn btn-primary">Guardar Dirección</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE LOGIN / REGISTRO (UNIFICADO CON INDEX, SIN DIRECCION) -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    
+                    <form id="loginForm" class="needs-validation" novalidate>
+                        
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="loginEmail" placeholder="tu@correo.com" required>
+                            <div class="invalid-feedback">
+                                Por favor, ingresa un correo electrónico válido.
+                            </div>
+                        </div>
+
+                        <!-- SE ELIMINÓ EL CAMPO DE DIRECCIÓN -->
+                        
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="loginPassword" required minlength="5">
+                            <div class="invalid-feedback" id="password-feedback">
+                                La contraseña es obligatoria (mínimo 5 caracteres).
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberCheck">
+                            <label class="form-check-label" for="rememberCheck">Recordar usuario</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 mb-3">Ingresar</button>
+                        
+                        <hr>
+                        
+                        <p class="text-center text-muted small">¿No tienes cuenta?</p>
+                        
+                        <button type="button" id="registerBtn" class="btn btn-outline-secondary w-100">Registrarse</button>
+
+                        <button type="button" id="guestLoginBtn" class="btn btn-info w-100 mt-2">Acceder sin registrarse (Invitado)</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Completo -->
+    <footer class="w-100 bg-dark text-white-50 p-4">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-md-4">
+                    <h5 class="text-white">Libros Penquistas</h5>
+                    <p class="small">
+                        Fomentando la lectura y la cultura en Concepción. 
+                        &copy; 2025 Todos los derechos reservados.
+                    </p>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5 class="text-white">Información de Contacto</h5>
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2"><i class="bi bi-geo-alt-fill me-2"></i>Arturo Prat 196, Concepción</li>
+                        <li class="mb-2"><i class="bi bi-telephone-fill me-2"></i>+56 9 1234 5678</li>
+                        <li><i class="bi bi-envelope-fill me-2"></i>contacto@librospenquistas.cl</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="text-white">Síguenos</h5>
+                    <div class="d-flex fs-3 gap-3">
+                        <a href="#" class="text-white-50" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white-50" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white-50" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    (function(){
+        // --- CLAVES DE ALMACENAMIENTO (Idénticas a index.html) ---
+        const DB_USERS_KEY = 'app_users_db_v1'; 
+        const CURRENT_USER_KEY = 'app_current_user_email';
+        const REMEMBER_ME_KEY = 'app_remember_email';
+        const GUEST_CART_KEY = 'app_guest_cart';
+
+        // --- HELPER: GESTIÓN DE USUARIOS ---
+        function getUsersDB() {
+            return JSON.parse(localStorage.getItem(DB_USERS_KEY)) || {};
+        }
+        function saveUsersDB(db) {
+            localStorage.setItem(DB_USERS_KEY, JSON.stringify(db));
+        }
+        function getCurrentUserEmail() {
+            return localStorage.getItem(CURRENT_USER_KEY);
+        }
+        function setCurrentUserEmail(email) {
+            if (email) localStorage.setItem(CURRENT_USER_KEY, email);
+            else localStorage.removeItem(CURRENT_USER_KEY);
+        }
+
+        // --- FUNCIONES DEL CARRITO (SOPORTE MULTI-CUENTA) ---
+        function obtenerCarrito(){
+            const email = getCurrentUserEmail();
+            if (email) {
+                // Logueado: carga carrito del usuario
+                const db = getUsersDB();
+                return (db[email] && db[email].cart) ? db[email].cart : [];
+            } else {
+                // Invitado: carga carrito invitado
+                return JSON.parse(localStorage.getItem(GUEST_CART_KEY)) || [];
+            }
+        }
+
+        function guardarCarrito(carrito){
+            const email = getCurrentUserEmail();
+            if (email) {
+                // Guardar en usuario
+                const db = getUsersDB();
+                if (db[email]) {
+                    db[email].cart = carrito;
+                    saveUsersDB(db);
+                }
+            } else {
+                // Guardar en invitado
+                localStorage.setItem(GUEST_CART_KEY, JSON.stringify(carrito));
+            }
+        }
+
+        function formatearPrecio(n){ return '$' + Number(n).toLocaleString(); }
+
+        function renderizarCarrito(){
+            const cont = document.getElementById('cart-items');
+            cont.innerHTML = '';
+            const carrito = obtenerCarrito();
+            const metodoEnvio = document.querySelector('input[name="metodoEnvio"]:checked').value;
+
+            if(carrito.length === 0){
+                cont.innerHTML = '<p class="text-muted">Tu carrito está vacío.</p>';
+                document.getElementById('cart-subtotal').textContent = formatearPrecio(0);
+                document.getElementById('cart-total').textContent = formatearPrecio(0);
+                actualizarContador();
+                return;
+            }
+
+            carrito.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card mb-3';
+                card.innerHTML = `
+                    <div class="row g-0 align-items-center">
+                        <div class="col-2">
+                            <img src="${item.imagen}" class="img-fluid rounded-start" alt="${item.nombre}" onerror="this.src='https://placehold.co/100x150?text=Item'">
+                        </div>
+                        <div class="col-7">
+                            <div class="card-body">
+                                <h5 class="card-title mb-1">${item.nombre}</h5>
+                                <p class="card-text text-muted mb-1">Precio: ${formatearPrecio(item.precio)}</p>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-sm btn-outline-secondary btn-decrease" data-id="${item.id}">-</button>
+                                    <span class="mx-2">${item.cantidad}</span>
+                                    <button class="btn btn-sm btn-outline-secondary btn-increase" data-id="${item.id}">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <h5 class="text-primary mb-0">${formatearPrecio(item.precio * item.cantidad)}</h5>
+                        </div>
+                    </div>
+                `;
+                cont.appendChild(card);
+            });
+
+            const subtotal = carrito.reduce((s, it) => s + (it.precio * it.cantidad), 0);
+            const costoEnvio = metodoEnvio === 'domicilio' ? 2500 : 0;
+            const total = subtotal + costoEnvio;
+            
+            document.getElementById('cart-subtotal').textContent = formatearPrecio(subtotal);
+            document.getElementById('cart-shipping').textContent = formatearPrecio(costoEnvio);
+            document.getElementById('cart-total').textContent = formatearPrecio(total);
+            actualizarContador();
+        }
+
+        function actualizarContador(){
+            const contador = document.getElementById('cart-count');
+            if(!contador) return;
+            const carrito = obtenerCarrito();
+            const total = carrito.reduce((s, it) => s + (it.cantidad || 0), 0);
+            contador.textContent = total;
+        }
+
+        function cambiarCantidad(id, delta){
+            const carrito = obtenerCarrito();
+            const idx = carrito.findIndex(i => i.id === id);
+            if(idx === -1) return;
+            carrito[idx].cantidad = (carrito[idx].cantidad || 1) + delta;
+            if(carrito[idx].cantidad <= 0) carrito.splice(idx, 1);
+            guardarCarrito(carrito);
+            renderizarCarrito();
+        }
+
+        // --- FUNCIONES DE DIRECCIÓN (Vinculadas al usuario) ---
+        function obtenerDireccionUsuario() {
+            const email = getCurrentUserEmail();
+            if (email) {
+                const db = getUsersDB();
+                return db[email] ? db[email].direccion : '';
+            }
+            return ''; // Invitado no tiene dirección persistente en DB por ahora
+        }
+
+        function guardarDireccionUsuario(nuevaDireccion) {
+            const email = getCurrentUserEmail();
+            if (email) {
+                const db = getUsersDB();
+                if (db[email]) {
+                    db[email].direccion = nuevaDireccion;
+                    saveUsersDB(db);
+                }
+            }
+            // Si es invitado, no guardamos permanentemente en DB, solo en memoria visual por sesión
+        }
+
+        function renderizarDireccion() {
+            const direccionTexto = document.getElementById('direccion-texto');
+            const metodoEnvio = document.querySelector('input[name="metodoEnvio"]:checked').value;
+            const contenedorDireccion = document.getElementById('direccion-envio-resumen');
+
+            if (metodoEnvio === 'domicilio') {
+                contenedorDireccion.style.display = 'block';
+                const dir = obtenerDireccionUsuario();
+                if (dir) {
+                    direccionTexto.textContent = dir;
+                } else {
+                    direccionTexto.textContent = 'No has ingresado una dirección.';
+                }
+            } else {
+                contenedorDireccion.style.display = 'none';
+            }
+             renderizarCarrito(); 
+        }
+
+        // --- FUNCIONES DE AUTENTICACIÓN ---
+        function estaLogueado() { return !!getCurrentUserEmail(); }
+
+        function actualizarEstadoLoginUI() {
+            const loggedInContainer = document.getElementById('user-logged-in');
+            const loggedOutContainer = document.getElementById('user-logged-out');
+            const userNameDisplay = document.getElementById('user-display-name');
+
+            if (estaLogueado()) {
+                loggedInContainer.classList.remove('d-none');
+                loggedInContainer.classList.add('d-flex');
+                loggedOutContainer.classList.add('d-none');
+                userNameDisplay.textContent = getCurrentUserEmail();
+            } else {
+                loggedInContainer.classList.add('d-none');
+                loggedInContainer.classList.remove('d-flex');
+                loggedOutContainer.classList.remove('d-none');
+            }
+            // Al cambiar usuario, recargamos carrito y dirección
+            renderizarCarrito();
+            renderizarDireccion();
+        }
+
+        document.addEventListener('DOMContentLoaded', function(){
+            // Inicializar
+            actualizarEstadoLoginUI(); // Esto llama a renderizarCarrito y Direccion
+
+            const direccionModalEl = document.getElementById('direccionModal');
+            const direccionModalInstance = bootstrap.Modal.getOrCreateInstance(direccionModalEl);
+
+            // Listeners envío
+            document.querySelectorAll('input[name="metodoEnvio"]').forEach(radio => {
+                radio.addEventListener('change', renderizarDireccion);
+            });
+
+            // Listener Editar Dirección
+            document.getElementById('editar-direccion-btn').addEventListener('click', function() {
+                if (!estaLogueado()) {
+                    alert('Debes iniciar sesión para guardar direcciones.');
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('loginModal')).show();
+                    return;
+                }
+                const dir = obtenerDireccionUsuario();
+                document.getElementById('direccionInput').value = dir || '';
+                direccionModalInstance.show();
+            });
+
+            // Listener Eliminar Dirección
+            document.getElementById('eliminar-direccion-btn').addEventListener('click', function() {
+                if (confirm('¿Estás seguro de borrar la dirección de tu cuenta?')) {
+                    guardarDireccionUsuario("");
+                    renderizarDireccion();
+                }
+            });
+
+             // Guardar Dirección (Modal)
+            document.getElementById('guardarDireccionBtn').addEventListener('click', function() {
+                const direccionForm = document.getElementById('direccionForm');
+                const direccionInput = document.getElementById('direccionInput');
+                
+                if (!direccionForm.checkValidity()) {
+                    direccionForm.classList.add('was-validated');
+                    return;
+                }
+
+                guardarDireccionUsuario(direccionInput.value);
+                renderizarDireccion();
+                direccionModalInstance.hide();
+                direccionForm.classList.remove('was-validated');
+            });
+
+
+            // Botones Carrito
+            document.getElementById('cart-items').addEventListener('click', function(e){
+                const inc = e.target.closest('.btn-increase');
+                const dec = e.target.closest('.btn-decrease');
+                if(inc) cambiarCantidad(inc.getAttribute('data-id'), +1);
+                if(dec) cambiarCantidad(dec.getAttribute('data-id'), -1);
+            });
+
+            document.getElementById('vaciar-btn').addEventListener('click', function(){
+                if(!confirm('¿Estás seguro de vaciar el carrito?')) return;
+                guardarCarrito([]);
+                renderizarCarrito();
+            });
+
+            document.getElementById('finalizar-btn').addEventListener('click', function(){
+                const carrito = obtenerCarrito();
+                if(carrito.length === 0){ alert('El carrito está vacío'); return; }
+                
+                if (!estaLogueado()) {
+                    alert('Por favor, inicia sesión para finalizar la compra.');
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('loginModal')).show();
+                    return;
+                }
+
+                // Validar dirección
+                const metodoEnvio = document.querySelector('input[name="metodoEnvio"]:checked').value;
+                const dir = obtenerDireccionUsuario();
+                if (metodoEnvio === 'domicilio' && !dir) {
+                    alert('Por favor, ingresa una dirección de envío para continuar.');
+                    document.getElementById('direccionInput').value = '';
+                    direccionModalInstance.show();
+                    return;
+                }
+
+                alert('¡Gracias por tu compra!');
+                guardarCarrito([]); // Vaciar carrito del usuario
+                renderizarCarrito();
+            });
+
+            // --- LÓGICA DEL MODAL DE LOGIN (COPIADA DE INDEX PARA CONSISTENCIA) ---
+            const loginForm = document.getElementById('loginForm');
+            const loginModalEl = document.getElementById('loginModal');
+            const loginModalInstance = bootstrap.Modal.getOrCreateInstance(loginModalEl);
+            
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (!loginForm.checkValidity()) {
+                    loginForm.classList.add('was-validated');
+                } else {
+                    const email = document.getElementById('loginEmail').value.trim();
+                    const password = document.getElementById('loginPassword').value;
+                    
+                    const db = getUsersDB();
+
+                    if (db[email] && db[email].password === password) {
+                        alert('¡Bienvenido, ' + email + '!');
+                        setCurrentUserEmail(email);
+                        
+                        if (document.getElementById('rememberCheck').checked) {
+                            localStorage.setItem(REMEMBER_ME_KEY, email);
+                        } else {
+                            localStorage.removeItem(REMEMBER_ME_KEY);
+                        }
+
+                        actualizarEstadoLoginUI();
+                        loginModalInstance.hide();
+                        loginForm.classList.remove('was-validated');
+                        loginForm.reset();
+                    } else {
+                        alert('Correo o contraseña incorrectos.');
+                    }
+                }
+            });
+
+            // Prellenar Login
+            loginModalEl.addEventListener('show.bs.modal', function () {
+                const rememberedEmail = localStorage.getItem(REMEMBER_ME_KEY);
+                if (rememberedEmail) {
+                    document.getElementById('loginEmail').value = rememberedEmail;
+                    document.getElementById('rememberCheck').checked = true;
+                } else {
+                    document.getElementById('loginEmail').value = '';
+                    document.getElementById('rememberCheck').checked = false;
+                }
+            });
+
+            document.getElementById('guestLoginBtn').addEventListener('click', function() {
+                setCurrentUserEmail(null);
+                actualizarEstadoLoginUI();
+                loginModalInstance.hide();
+                alert('Navegando como invitado.');
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                setCurrentUserEmail(null);
+                actualizarEstadoLoginUI();
+                alert('Sesión cerrada.');
+            });
+
+             // REGISTRO FUNCIONAL (SIMPLIFICADO)
+            const registerBtn = document.getElementById('registerBtn');
+            if (registerBtn) {
+                registerBtn.addEventListener('click', function() {
+                    
+                    // Ya no hay validación de dirección aquí
+
+                    if (loginForm.checkValidity()) {
+                        const email = document.getElementById('loginEmail').value.trim();
+                        const password = document.getElementById('loginPassword').value;
+                        const db = getUsersDB();
+
+                        if (db[email]) {
+                            alert('Cuenta existente. Inicia sesión.');
+                        } else {
+                            // Se guarda con dirección vacía
+                            db[email] = { password: password, direccion: "", cart: [] };
+                            saveUsersDB(db);
+                            alert('¡Registro exitoso! Sesión iniciada.');
+                            setCurrentUserEmail(email);
+                            actualizarEstadoLoginUI();
+                            loginModalInstance.hide();
+                            loginForm.classList.remove('was-validated');
+                            loginForm.reset();
+                        }
+                    } else {
+                         loginForm.classList.add('was-validated');
+                    }
+                });
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

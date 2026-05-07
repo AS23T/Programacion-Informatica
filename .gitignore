@@ -1,0 +1,38 @@
+# === Basura de C# / .NET ===
+bin/
+obj/
+packages/
+.vs/
+.vscode/
+Debug/
+Release/
+*.user
+*.suo
+*.cache
+*.log
+*.exe
+*.dll
+*.pdb
+*.deps.json
+*.runtimeconfig.json
+
+# === Basura de Java ===
+build/
+nbproject/
+target/
+.classpath
+.project
+.settings/
+*.war
+*.ear
+*.iml
+*.lock
+*.log
+
+# === Basura común ===
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+*.swo
+*~

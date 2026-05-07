@@ -1,0 +1,215 @@
+/*el DESCRIBE (desc) sirve para mostrar la estructura de la tabla*/
+
+desc DEPARTAMENTOS;
+desc CARGOS;
+desc EMPLEADOS;
+
+/* SELECT para proyectar las tablas completas*/
+
+select * from LUGARES;
+select * from DEPARTAMENTOS;
+select * from CARGOS;
+select * from EMPLEADOS;
+SELECT * FROM GRADOS_CARGOS;
+SELECT * FROM DEPARTAMENTOS;
+
+/* el AS se usa para cambiar nombre a la tabla*/
+
+SELECT  DEPT_NOMBRE AS NOMBRE ,LUGAR_ID LUGAR FROM DEPARTAMENTOS;
+select NOMBRE,FONO,SALARIO FROM EMPLEADOS;
+
+/*Muestra nombre y apellido en una sola columna*/
+
+SELECT NOMBRE ||' '||APELLIDO AS NOMBRE ,FONO,SALARIO FROM EMPLEADOS;
+
+/*ORDER BY se usa para ordenar la tabla de forma ascendente o Descente*/
+
+ORDER BY 3 ASC; */EL 3 SIMBOLIZA EL NUMERO DE COLUMNA*/
+ORDER BY SALARIO ASC;
+
+/*El WHERE se usa para condicionar */
+
+SELECT * FROM LUGARES WHERE PAIS_ID='US';
+SELECT * FROM LUGARES WHERE CIUDAD LIKE 'O%';
+SELECT CIUDAD FROM LUGARES WHERE CIUDAD LIKE 'O%';
+
+/* UPPER y LOWER muestra(transforma) datos en mayuscula y minuscula */
+SELECT CIUDAD FROM LUGARES WHERE UPPER (CIUDAD) LIKE 'O%';
+SELECT CIUDAD FROM LUGARES WHERE LOWER (CIUDAD) LIKE 'O%';
+
+/*Muestra las filas en donde el lugar Id es mayo a 1700*/
+
+SELECT LUGAR_ID,CIUDAD FROM LUGARES WHERE LUGAR_ID>1700
+SELECT * FROM LUGARES WHERE LUGAR_ID<>1700 AND PAIS_ID ='CA'
+
+/*BETWEEN se usa para buscar valores ENTRE (incluye los extremos) */
+
+SELECT * FROM LUGARES WHERE LUGAR_ID BETWEEN 1700 AND 2000
+
+/*MOSTRAR EL SALARIO DE LOS EMPLEADOS ID (140-150) AUMENTADO EN UN 20%*/
+
+SELECT EMPLEADO_ID,SALARIO,SALARIO*1.2 AS "SALARIO AUMENTADO"
+FROM EMPLEADOS WHERE EMPLEADO_ID BETWEEN 140 AND 150;
+
+/*MUESTRA LOS EMPLEADOS CON COMISION NULA*/
+
+SELECT * FROM EMPLEADOS WHERE COMISION_PORC IS NULL
+ORDER BY EMPLEADO_ID DESC --DESCENDENTE COLUMNA EMPLEADOS ID
+
+SELECT * FROM EMPLEADOS WHERE COMISION_PORC IS NULL
+ORDER BY 3 ASC --ASCENDENTE COLUMNA APELLIDOS (3)
+
+/* RELACIONA 2 TABLAS UTILIZANDO INNER JOIN  */
+SELECT NOMBRE,DEPT_NOMBRE,D.JEFE_ID FROM EMPLEADOS E
+INNER JOIN DEPARTAMENTOS D
+ON E.DEPARTAMENTO_ID =D.DEPARTAMENTO_ID;
+
+SELECT NOMBRE_PAIS AS PAISES FROM PAISES;
+
+SELECT DEPT_NOMBRE DEPA,LUGAR_ID AS "CODIGO DE LUGAR" FROM DEPARTAMENTOS;
+
+SELECT CIUDAD,PAIS_ID FROM LUGARES 
+ORDER BY CIUDAD ASC ;
+
+SELECT CIUDAD,PAIS_ID FROM LUGARES 
+ORDER BY CIUDAD DESC ;
+
+/*PROYECTAR NOMBRE CARGO Y SALARIO MINIMO DE LA TABLA CARGOS*/
+
+SELECT NOMBRE_CARGO AS "NOMBRE CARGO",SALARIO_MIN AS "SALARIO MINIMO" FROM CARGOS
+ORDER BY 2 DESC;
+
+/* PROYECTAR GRADO NIVEL Y SALARIO MAXIMO DE LA TABLA GRADOS CARGOS*/
+
+SELECT GRADO_NIVEL AS "NIVEL DE GRADO",SALARIO_ALTO AS "SALARIO ALTO" FROM GRADOS_CARGOS
+ORDER BY 2 DESC;
+
+/* FUNCIONES
+
+LOWER : PONE EN MINUSCULA
+UPPER : PONE EN MAYUSCULA 
+INITCAP : PONE EN MAYUSCULA LA PRIMERA LETRA
+CONCAT :
+LENGHT : 
+SUBSTR :
+INSTR :
+LPAD :
+RPAD :
+TRIM :
+REPLACE :
+
+*/
+
+SELECT UPPER ((CONCAT (CONCAT(NOMBRE,' '),APELLIDO)))NOMBRE 
+FROM EMPLEADOS WHERE UPPER(NOMBRE)='steven';
+
+/*MUESTRA INICIAL DE LOS NOMBRES DE TABLA EMPLEADOS*/
+
+SELECT SUBSTR(NOMBRE,1,1) INICIAL FROM EMPLEADOS;
+
+/* FUNCIONES NÚMERICAS
+
+ROUND :REDONDEA COLUMNAS
+TRUNC :CORTA COLUMNAS
+MOD : EL RESTO DE UNA DIVISION
+
+*/
+
+
+
+ALTER SESSION SET NLS_DATE_FORMAT='YYYY/MM/DD';
+
+/*Mostrar todos los datos de los empleados y el nombre del departamento con letra
+mayúscula de aquellos empleados que no registran comisión.*/
+
+SELECT * FROM EMPLEADOS WHERE COMISION_PORC IS NULL
+
+/*Mostrar Nombre, Apellido, Salario, nombre de cargo con letra minúscula, salario
+máximo, salario mínimo del cargo, diferencia entre el salario del empleado y el
+salario máximo del cargo, de aquellos empleados que su antigüedad está entre
+los 10 y 15 años.*/
+
+SELECT NOMBRE,APELLIDO,SALARIO,CARGO_ID,FECHA_ING FROM EMPLEADOS ;
+
+SELECT E.NOMBRE,E.APELLIDO, E.SALARIO, C.NOMBRE_CARGO, C.SALARIO_MAX, C.SALARIO_MIN, (C.SALARIO_MAX - E.SALARIO) AS DIF_SALARIO
+FROM EMPLEADOS E
+INNER JOIN CARGOS C 
+ON E.CARGO_ID = C.CARGO_ID;
+
+
+SELECT EMPLEADOS.NOMBRE,  EMPLEADOS.APELLIDO, EMPLEADOS.SALARIO, CARGOS.NOMBRE_CARGO, CARGOS.SALARIO_MAX, CARGOS.SALARIO_MIN,EMPLEADOS.FECHA_ING ,(CARGOS.SALARIO_MAX- EMPLEADOS.SALARIO )AS DIF_SALARIO
+FROM EMPLEADOS, CARGOS
+WHERE EMPLEADOS.CARGO_ID= CARGOS.CARGO_ID
+AND EMPLEADOS.FECHA_ING BETWEEN "1/01/2010" AND  "1/01/2015"
+
+SELECT * FROM EMPLEADOS
+
+/*Mostrar el nombre con letra mayúscula, la inicial del apellido con letra minúscula,
+salario, 22% del salario, de aquellos empleados cuyo código de cargo inicia con:
+it.
+*/
+
+SELECT NOMBRE,APELLIDO,SALARIO*0.22 AS "SALARIO DISMINUIDO",SALARIO ,CARGO_ID FROM EMPLEADOS
+WHERE(CARGO_ID) LIKE 'IT%'
+
+/*Mostrar los 2 últimos caracteres de la identificación del empleado, las iniciales del
+nombre y apellido, salario, de los empleados ordenados por su salario cuyo valor
+se encuentra entre 9000 y 15000 dólares.*/
+
+SELECT SUBSTR(EMPLEADO_ID,2,2) ,SUBSTR(NOMBRE,1,1) INICIAL_NOMBRE ,SUBSTR(APELLIDO,1,1) INICIAL_APELLIDO ,SALARIO FROM EMPLEADOS
+WHERE  SALARIO BETWEEN 9000 AND 15000
+ORDER BY SALARIO DESC
+
+/*Mostrar todos los datos de los empleados y el nombre del cargo con letra
+mayúscula de aquellos empleados que su comisión es mayor a 2%.EJERCICIO 6*/
+
+SELECT E.NOMBRE,E.APELLIDO,COMISION_PORC, C.NOMBRE_CARGO
+FROM EMPLEADOS E
+INNER JOIN CARGOS C 
+ON E.CARGO_ID = C.CARGO_ID
+WHERE COMISION_PORC>0.2
+ 
+
+SELECT COMISION_PORC AS "COMISION MAYOR A 2%"  FROM EMPLEADOS
+WHERE COMISION_PORC=0.2
+
+/*Mostrar el nombre del departamento en mayúscula, nombre y apellido del jefe del 
+departamento en una columna, llamada Nombre, su salario dividido por 10000,
+redondeado con 2 decimales y cortar a 2 decimales.*/
+
+SELECT NOMBRE||' '||APELLIDO "NOMBRE JEFE",CARGO_ID,TRUNC(SALARIO/2000000,2) AS "SALARIO TRUNCADO" --EN EL TRUNC LA OPERACION MATEMATICA VA DENTRO DEL PARENTESIS
+FROM EMPLEADOS
+WHERE (CARGO_ID)='AD_PRES'
+
+/*Mostrar Nombre, Apellido, nombre del cargo, promedio del salario máximo y 
+salario mínimo del cargo, redondeado a 0 decimal, y salario del empleado. Para 
+aquellos empleados que no tienen comisión.*/
+
+SELECT E.NOMBRE,E.APELLIDO,C.NOMBRE_CARGO,((SALARIO_MAX+SALARIO_MIN)/2) AS PROMEDIO,E.SALARIO AS "SALARIO EMPLEADO",E.COMISION_PORC 
+FROM EMPLEADOS E
+INNER JOIN CARGOS C
+ON E.CARGO_ID=C.CARGO_ID
+WHERE(COMISION_PORC) IS NULL
+ORDER BY PROMEDIO DESC
+
+
+/*Mostrar Nombre, Apellido, nombre, el email, considerando que se encuentra mal 
+escrito en la base de datos y debe ser expresado de la siguiente forma: 
+nombre.apellido(largo del teléfono)@gamil.com. Para aquellos empleados cuyo 
+salario no supera las 15000 unidades monetarias.*/
+
+SELECT NOMBRE,APELLIDO,EMAIL,SALARIO,FONO FROM EMPLEADOS
+WHERE(SALARIO)<15000
+ORDER BY SALARIO DESC
+
+SELECT NOMBRE||''|| APELLIDO ||''|| LENGTH(FONO) ||''|| '@gmail.com'  AS "email corregido"
+FROM empleados
+WHERE salario<15000
+
+/*Mostrar Nombre, Apellido, número de meses de antigüedad, redondeado a 2 
+decimales, número de años de antigüedad, cortar a 2 decimales. Para aquellos 
+empleados cuyo salario se encuentra entre 2000 y 4000 unidades monetarias.*/
+
+SELECT NOMBRE,APELLIDO,FECHA_ING,SALARIO,(SYSDATE-FECHA_ING)/365 AS MESES 
+FROM EMPLEADOS
+ORDER BY MESES DESC

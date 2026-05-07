@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Hobby Favorito</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+            /* "body" es un selector (apunta a la etiqueta <body>) */
+            body {
+                background-color: #f4f4f4; /* Un gris muy claro */
+            }
+            /* Vamos a darle más estilo a nuestro título de sección */
+            .titulo-seccion {
+                color: #004085; /* Un azul oscuro */
+                border-bottom: 2px solid #b8daff;
+                padding-bottom: 5px;
+                margin-bottom: 20px;
+            }
+        </style>
+
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Mi Hobby</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="menuPrincipal">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Acerca de</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="container mt-4">
+            <section class="row align-items-center">
+                
+                <div class="col-md-6">
+                    <h1 class="titulo-seccion">Bienvenido a mi Hobby</h1>
+                    <p>Aquí puedes poner un párrafo explicando tu hobby favorito. Puede ser la programación, los videojuegos, la música, ¡lo que sea! Este texto estará al lado de la imagen en pantallas grandes.</p>
+                </div>
+                
+                <div class="col-md-6">
+                    <img src="https://via.placeholder.com/400x300" alt="Imagen de mi hobby" class="img-fluid rounded">
+                    </div>
+            </section>
+
+            <section class="mt-5"> <h2 class="titulo-seccion text-center">Galería</h2>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-3"> <div class="card">
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Aspecto 1</h5>
+                                <p class="card-text">Descripción breve del primer aspecto de tu hobby.</p>
+                                <a href="#" class="btn btn-primary">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Aspecto 2</h5>
+                                <p class="card-text">Descripción breve del segundo aspecto de tu hobby.</p>
+                                <a href="#" class="btn btn-primary">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Aspecto 3</h5>
+                                <p class="card-text">Descripción breve del tercer aspecto de tu hobby.</p>
+                                <a href="#" class="btn btn-primary">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-light text-center p-3 mt-5">
+            <p>Copyright © 2025. [Tu Nombre Aquí]</p>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            // Esto no hace nada visual, pero puedes verlo en la "Consola" del navegador (F12)
+            // Es útil para saber que tu script está funcionando.
+            console.log("¡Mi página de práctica está lista!");
+        </script>
+        
+</body>
+</html>

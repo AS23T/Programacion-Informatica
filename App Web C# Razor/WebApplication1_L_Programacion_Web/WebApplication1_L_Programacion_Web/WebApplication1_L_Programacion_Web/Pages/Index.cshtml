@@ -1,0 +1,57 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Bienvenidos culiaos :)";
+    
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Mensaje</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<h2>Formulario de contacto</h2>
+<form method="get" style="max-width: 300px;">
+    <div class="form-group">
+        <label>Nombre:</label>
+        <input asp-for="Nombrecito" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label>Telefono:</label>
+        <input asp-for="Telefono" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Agregar</button>
+
+</form>
+
+<table class="table table-striped table-hover mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Telefono</th>
+            <th class="text-center">Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (IndexModel.Varias_Personas.Count > 0)
+        {
+            @for (int i = 0; i < IndexModel.Varias_Personas.Count; i++)
+            {
+                var persona = IndexModel.Varias_Personas[i];
+                <tr>
+                    <td>@persona.Nombre</td> <!-- con el arroba puedo insertar c# en html -->
+                    <td>@persona.Fono</td>
+                    <td>Eliminar</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center text-muted">
+                    No hay personas en la lista aun
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

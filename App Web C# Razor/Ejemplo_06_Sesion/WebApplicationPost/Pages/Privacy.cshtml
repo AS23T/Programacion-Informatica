@@ -1,0 +1,20 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Página de Destino";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div style="background-color: #e1f5fe; padding: 20px; border-radius: 5px;">
+    @if (!string.IsNullOrEmpty(Model.InfoRecibida))
+    {
+        <p>Has recibido este dato desde la otra página:</p>
+        <strong>@Model.InfoRecibida</strong>
+    }
+    else
+    {
+        <p>No se recibieron datos o la página se refrescó (TempData ya expiró).</p>
+    }
+</div>
+
+<a asp-page="Index">Volver al formulario</a>
