@@ -1,3 +1,1 @@
-# Programacion-Informatica
-
-Dioooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooos es mucha mierda.
+# Programacion-Informatica IPVG (Instituto Profesional Virginio Gomez)
