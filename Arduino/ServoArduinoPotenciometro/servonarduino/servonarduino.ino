@@ -2,7 +2,7 @@
 
 Servo escalera;  
 //ServoMotor:
-///Cable color caje pin: GND
+///Cable color cafe pin: GND
 //Cable color rojo pin: 5V
 //Cable color naranja pin: 9
 
