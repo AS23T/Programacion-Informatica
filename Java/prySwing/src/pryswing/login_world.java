@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package pryswing;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.sql.*;
 
-/**
- *
- * @author VoltCat
- */
 public class login_world extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(login_world.class.getName());
@@ -72,7 +65,7 @@ public class login_world extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(267, 267, 267)
                         .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(309, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,12 +121,19 @@ public class login_world extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-String user_OK = "tuvieja";
-String pass_OK = "1234";
+//String user_OK = "tuvieja";
+//String pass_OK = "1234";
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        try {
+            Connection cn1 = DriverManager.getConnection("jdbc:mysql://localhost:3307/proyecto_test","root","");
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
         
+        /*
         int respuesta = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere ingresar al sist.?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         String respuesta2 = JOptionPane.showInputDialog(null, "ingrese su nombre");
@@ -155,6 +155,7 @@ String pass_OK = "1234";
         }
         
         JOptionPane.showMessageDialog(null, "OK BYE", "SALIDA", JOptionPane.ERROR_MESSAGE);
+        */
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

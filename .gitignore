@@ -36,3 +36,4 @@ Thumbs.db
 *.swp
 *.swo
 *~
+/Java/Eval2_swing/dist/
