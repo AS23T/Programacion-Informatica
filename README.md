@@ -1,1 +1,3 @@
-# Programacion-Informatica IPVG (Instituto Profesional Virginio Gomez)
+# Programacion-Informatica
+
+IPVG (Instituto Profesional Virginio Gomez)
